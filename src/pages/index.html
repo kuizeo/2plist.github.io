@@ -1,0 +1,71 @@
+<script type="module">
+	import { h, Component, render } from 'https://unpkg.com/preact?module';
+	import htm from 'https://unpkg.com/htm?module';
+
+	// Initialize htm with Preact
+	const html = htm.bind(h);
+
+	function Header(props) {
+		return html`
+			<div id="header">
+				<h1>The Two-Player Demon List</h1>
+				<p>
+					The Two-player Demon List serves as a way of preserving and celebrating the
+					achievements of a more obscure side of the Geometry Dash community &mdash;
+					two-player levels and, more specifically, solo completions of two-player
+					levels.
+				</p>
+			</div>
+		`;
+	}
+
+	function Demon(props) {
+		let demonSlug = props.name.toLowerCase().replaceAll(" ", "-");
+
+		return html`
+			<a href="/demon/${demonSlug}.html" class="demon">
+				<table>
+					<tbody>
+						<tr>
+							<td class="video">
+								<iframe
+									src="https://www.youtube.com/embed/${props.video}"
+									title="${props.name}"
+								></iframe>
+							</td>
+							<td class="infobox">
+								<h2>${props.name}</h2>	
+								<p>
+									👤 Built by ${props.creator}
+									<span class="space"></span>
+
+									✔️ Verified by ${props.verifier}
+									<span class="space"></span>
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</a>
+		`
+	}
+
+	function DemonList(props) {
+		return html`
+			<div id="demonlist">
+				!DEMONS!
+			</div>
+		`;
+	}
+
+	function App(props) {
+		return html`
+			<${Header} />
+			<${DemonList} />
+
+			<link rel="stylesheet" href="style.css" />
+		`;
+	}
+
+	render(html`<${App} />`, document.body);
+</script>
